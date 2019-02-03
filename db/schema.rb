@@ -10,9 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_02_03_195644) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "users", primary_key: "user_id", force: :cascade do |t|
+    t.uuid "uuid"
+    t.string "name"
+    t.string "user_type", default: "member"
+    t.string "email"
+    t.string "username"
+    t.string "password_digest"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((email)::text)", name: "index_users_on_lower_email_unique", unique: true
+    t.index "lower((username)::text)", name: "index_users_on_lower_username_unique", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["user_type"], name: "index_users_on_user_type"
+    t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
+  end
 
 end
