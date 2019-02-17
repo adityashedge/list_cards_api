@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Trackable
+
   has_secure_password validations: false
 
   MEMBER_USER_TYPE = "member"
