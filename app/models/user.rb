@@ -44,4 +44,11 @@ class User < ApplicationRecord
       end
     end
   end
+
+
+  def api_key(device_id)
+    payload = { user_id: user_id, user_type: user_type }
+    payload.merge!(device: device_id)
+    JWT.encode(payload, JWT_SECRET)
+  end
 end
