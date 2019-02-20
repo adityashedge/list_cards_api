@@ -10,6 +10,8 @@ class User < ApplicationRecord
     "admin" => "Admin"
   }
 
+  has_many :devices
+
   validates :name, :email, :username, :user_type, presence: { message: "%{attribute} can't be blank" }
   validates :user_type, inclusion: { in: USER_TYPES.keys, message: "'%{value}' is not a valid user type" }
   validates :password, presence: { message: "Password can't be blank" }, on: :create

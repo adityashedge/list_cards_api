@@ -10,11 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_03_195644) do
+ActiveRecord::Schema.define(version: 2019_02_19_152307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "devices", primary_key: "device_id", force: :cascade do |t|
+    t.string "uuid"
+    t.string "device_identifier"
+    t.string "auth_token"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.integer "sign_in_count", default: 0, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auth_token"], name: "index_devices_on_auth_token", unique: true
+    t.index ["user_id"], name: "index_devices_on_user_id"
+    t.index ["uuid"], name: "index_devices_on_uuid", unique: true
+  end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.uuid "uuid"
