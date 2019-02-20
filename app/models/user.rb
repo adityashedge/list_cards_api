@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include UUIDGenerator
   include Trackable
 
   has_secure_password validations: false
