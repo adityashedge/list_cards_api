@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_secure_password validations: false
 
   MEMBER_USER_TYPE = "member"
+  ADMIN_USER_TYPE = "admin"
   USER_TYPES = {
     "member" => "Member",
     "admin" => "Admin"
@@ -47,6 +48,9 @@ class User < ApplicationRecord
     end
   end
 
+  def is_admin?
+    user_type == ADMIN_USER_TYPE
+  end
 
   def api_key(device)
     payload = { user_id: uuid, user_type: user_type }
