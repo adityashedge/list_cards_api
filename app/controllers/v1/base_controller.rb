@@ -3,6 +3,11 @@ class V1::BaseController < ApplicationController
 
   before_action :validate_request_type!
   before_action :authenticate_user!
+  before_action :authorize!
+
+  def validate_request_type!
+    head :bad_request and return unless SUPPORTED_REQUEST_TYPES.include?(request.headers["Content-Type"])
+  end
 
   def current_user
     @current_user ||= User.find_by(uuid: current_user_uuid)
@@ -18,8 +23,18 @@ class V1::BaseController < ApplicationController
     end
   end
 
-  def validate_request_type!
-    head :bad_request and return unless SUPPORTED_REQUEST_TYPES.include?(request.headers["Content-Type"])
+  def current_resource
+    nil
+  end
+
+  def current_permission
+    @current_permission ||= Permissions.permission_for(current_user)
+  end
+
+  def authorize!
+    unless current_permission.allow?(params[:controller], params[:action], current_resource)
+      render json: { message: I18n.t("sessions.error.unauthorized") }, status: :unauthorized and return
+    end
   end
 
   private

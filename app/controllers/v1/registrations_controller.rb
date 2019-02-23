@@ -1,5 +1,6 @@
 class V1::RegistrationsController < V1::BaseController
   skip_before_action :authenticate_user!
+  skip_before_action :authorize!
 
   def create
     head :bad_request and return unless (params[:user].present? && params[:user][:device_identifier].present?)

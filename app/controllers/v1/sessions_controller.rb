@@ -1,5 +1,6 @@
 class V1::SessionsController < V1::BaseController
   skip_before_action :authenticate_user!, except: [:destroy]
+  skip_before_action :authorize!
 
   def create
     unless (params[:user].present? && params[:user][:login].present? && params[:user][:password].present? && params[:user][:device_identifier].present?)
