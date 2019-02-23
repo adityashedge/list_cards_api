@@ -2,6 +2,8 @@ class User < ApplicationRecord
   include UUIDGenerator
   include Trackable
 
+  attr_accessor :login
+
   has_secure_password validations: false
 
   MEMBER_USER_TYPE = "member"
