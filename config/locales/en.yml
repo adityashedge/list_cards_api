@@ -44,3 +44,4 @@ en:
     error:
       sign_in: "Invalid login or password."
       device_not_saved: "Unable to complete the sign in request. Please try again."
+      unauthenticated: "You need to sign in or sign up before continuing."
