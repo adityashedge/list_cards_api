@@ -1,4 +1,6 @@
 class V1::SessionsController < V1::BaseController
+  skip_before_action :authenticate_user!, except: [:destroy]
+
   def create
     unless (params[:user].present? && params[:user][:login].present? && params[:user][:password].present? && params[:user][:device_identifier].present?)
       head :bad_request and return
@@ -25,5 +27,8 @@ class V1::SessionsController < V1::BaseController
   end
 
   def destroy
+    current_device.auth_token = nil
+    current_device.update_attribute(:auth_token, nil)
+    render json: { message: I18n.t('sessions.success.signed_out') }, status: :ok
   end
 end
