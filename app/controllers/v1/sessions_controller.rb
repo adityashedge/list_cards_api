@@ -11,7 +11,7 @@ class V1::SessionsController < V1::BaseController
       device.update_tracked_fields(request)
       if device.save
         user_data = user.as_json(only: [:uuid, :name, :email, :username, :user_type])
-        user_data.merge!(api_key: user.api_key(device.device_id), device: device.as_json(only: [:uuid, :device_identifier, :auth_token]))
+        user_data.merge!(api_key: user.api_key(device), device: device.as_json(only: [:uuid, :device_identifier, :auth_token]))
         render json: {
           message: I18n.t('sessions.success.signed_in'),
           data: { user: user_data }
