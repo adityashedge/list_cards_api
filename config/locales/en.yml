@@ -46,3 +46,20 @@ en:
       device_not_saved: "Unable to complete the sign in request. Please try again."
       unauthenticated: "You need to sign in or sign up before continuing."
       unauthorized: "You are not authorized to access this resource."
+  active_record:
+    success:
+      created: "%{record} created successfully."
+      updated: "%{record} updated successfully."
+      deleted: "%{record} deleted successfully."
+      added: "%{record} was added to %{parent} successfully."
+      removed: "%{record} was removed from %{parent} successfully."
+    error:
+      not_found: "%{record} not found."
+      not_created: "Unable to create %{record}. Please correct the errors and try again."
+      not_updated: "Unable to updated %{record}. Please correct the errors and try again."
+      not_deleted: "Unable to delete %{record}. Please correct the errors and try again."
+      already_exists: "%{record} already exists for %{parent}."
+      does_not_exist: "%{record} does not exist for %{parent}."
+      not_added: "Unable to add %{record} to %{parent}."
+      not_removed: "Unable to remove %{record} from %{parent}."
+
