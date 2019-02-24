@@ -6,6 +6,6 @@ class Card < ApplicationRecord
   belongs_to :user
 
   validates :title, :description, presence: { message: "%{attribute} can't be blank" }
-  validates :owner, presence: { message: "List can't exist without an owner" }
+  validates :user, presence: { message: "List can't exist without an user" }
   validates :list, presence: { message: "Card can't exist without a list" }
 end

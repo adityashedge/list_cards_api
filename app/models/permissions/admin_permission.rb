@@ -6,6 +6,14 @@ module Permissions
       allow "v1/lists", [:update, :destroy, :assign_member, :unassign_member] do |list|
         list.owner_id == user.user_id
       end
+
+      allow "v1/cards", [:index, :create, :show]
+      allow "v1/cards", [:update] do |card|
+        card.user_id == user.user_id
+      end
+      allow "v1/cards", [:destroy] do |card|
+        card.user_id == user.user_id || card.list.owner_id == user.user_id
+      end
     end
   end
 end
