@@ -132,7 +132,7 @@ class V1::ListsController < V1::BaseController
 
   def current_resource
     @current_resource ||= if current_user.is_admin?
-                            current_user.owned_lists.find_by(uuid: params[:id])
+                            List.find_by(uuid: params[:id])
                           else
                             current_user.lists.find_by(uuid: params[:id])
                           end
