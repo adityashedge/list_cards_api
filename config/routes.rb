@@ -7,11 +7,14 @@ Rails.application.routes.draw do
     post 'users/sign_up' => 'registrations#create', :as => :user_registration
 
     resources :users, only: [:index]
+
     resources :lists, except: [:new, :edit] do
       member do
         post :assign_member
         delete "/unassign_member/:member_id" => :unassign_member
       end
     end
+
+    resources :cards, except: [:new, :edit]
   end
 end
