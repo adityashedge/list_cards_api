@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     delete 'users/sign_out' => 'sessions#destroy', :as => :destroy_user_session
 
     post 'users/sign_up' => 'registrations#create', :as => :user_registration
+
+    resources :users, only: [:index]
   end
 end
