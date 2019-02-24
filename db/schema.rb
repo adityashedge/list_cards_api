@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_112302) do
+ActiveRecord::Schema.define(version: 2019_02_24_125251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,9 +24,26 @@ ActiveRecord::Schema.define(version: 2019_02_24_112302) do
     t.bigint "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0, null: false
+    t.index ["comments_count"], name: "index_cards_on_comments_count"
     t.index ["list_id"], name: "index_cards_on_list_id"
     t.index ["owner_id"], name: "index_cards_on_owner_id"
     t.index ["uuid"], name: "index_cards_on_uuid", unique: true
+  end
+
+  create_table "comments", primary_key: "comment_id", force: :cascade do |t|
+    t.uuid "uuid"
+    t.text "description"
+    t.integer "comments_count", default: 0, null: false
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["comments_count"], name: "index_comments_on_comments_count"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["uuid"], name: "index_comments_on_uuid", unique: true
   end
 
   create_table "devices", primary_key: "device_id", force: :cascade do |t|
