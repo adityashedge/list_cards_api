@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_152307) do
+ActiveRecord::Schema.define(version: 2019_02_24_002024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -29,8 +29,19 @@ ActiveRecord::Schema.define(version: 2019_02_19_152307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["auth_token"], name: "index_devices_on_auth_token", unique: true
+    t.index ["device_identifier"], name: "index_devices_on_device_identifier"
+    t.index ["user_id", "device_identifier"], name: "index_devices_on_user_id_and_device_identifier", unique: true
     t.index ["user_id"], name: "index_devices_on_user_id"
     t.index ["uuid"], name: "index_devices_on_uuid", unique: true
+  end
+
+  create_table "lists", primary_key: "list_id", force: :cascade do |t|
+    t.uuid "uuid"
+    t.string "title"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_lists_on_owner_id"
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
