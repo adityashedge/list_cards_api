@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :devices
   has_many :owned_lists, class_name: "List", foreign_key: :owner_id
+  has_many :owned_cards, class_name: "Card", foreign_key: :owner_id
   has_and_belongs_to_many :lists
 
   validates :name, :email, :username, :user_type, presence: { message: "%{attribute} can't be blank" }

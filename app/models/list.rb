@@ -1,6 +1,7 @@
 class List < ApplicationRecord
   include UUIDGenerator
 
+  has_many :cards
   has_and_belongs_to_many :users
   belongs_to :owner, class_name: "User"
 

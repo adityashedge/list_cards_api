@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_004142) do
+ActiveRecord::Schema.define(version: 2019_02_24_112302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "cards", primary_key: "card_id", force: :cascade do |t|
+    t.uuid "uuid"
+    t.string "title"
+    t.text "description"
+    t.bigint "owner_id"
+    t.bigint "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_cards_on_list_id"
+    t.index ["owner_id"], name: "index_cards_on_owner_id"
+    t.index ["uuid"], name: "index_cards_on_uuid", unique: true
+  end
 
   create_table "devices", primary_key: "device_id", force: :cascade do |t|
     t.string "uuid"
