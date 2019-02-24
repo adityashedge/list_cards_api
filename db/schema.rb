@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_125251) do
+ActiveRecord::Schema.define(version: 2019_02_24_171517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -20,14 +20,14 @@ ActiveRecord::Schema.define(version: 2019_02_24_125251) do
     t.uuid "uuid"
     t.string "title"
     t.text "description"
-    t.bigint "owner_id"
+    t.bigint "user_id"
     t.bigint "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "comments_count", default: 0, null: false
     t.index ["comments_count"], name: "index_cards_on_comments_count"
     t.index ["list_id"], name: "index_cards_on_list_id"
-    t.index ["owner_id"], name: "index_cards_on_owner_id"
+    t.index ["user_id"], name: "index_cards_on_user_id"
     t.index ["uuid"], name: "index_cards_on_uuid", unique: true
   end
 
