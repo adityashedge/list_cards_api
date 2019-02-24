@@ -37,6 +37,14 @@ class V1::BaseController < ApplicationController
     end
   end
 
+  def get_pagiation_options
+    @page = (params[:page].presence && params[:page].to_i >= 1) ? params[:page].to_i : 1
+    @per_page = (params[:per_page].presence && params[:per_page].to_i >= 1) ? params[:per_page].to_i : 20
+
+    @offset = (@page - 1) * @per_page
+    @limit = @per_page
+  end
+
   private
 
   def x_api_key
