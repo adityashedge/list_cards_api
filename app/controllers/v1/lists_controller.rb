@@ -39,9 +39,11 @@ class V1::ListsController < V1::BaseController
     render json: { message: I18n.t("active_record.error.not_found", record: "List") }, status: :not_found and return unless current_resource.present?
 
     list = current_resource
-    render json: {
-      data: { list: list.as_json(only: [:uuid, :title], include: { cards: { only: [:uuid, :title, :description] } }) }
-    }, status: :ok
+    # latest cards with most comments first
+    cards = list.cards.order(comments_count: :desc, card_id: :desc).limit(3)
+    list_data = list.as_json(only: [:uuid, :title])
+    list_data.merge!(cards: cards.as_json(only: [:uuid, :title, :description, :comments_count]))
+    render json: { data: { list: list_data } }, status: :ok
   end
 
   def update
