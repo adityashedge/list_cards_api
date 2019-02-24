@@ -40,7 +40,7 @@ class V1::ListsController < V1::BaseController
 
     list = current_resource
     render json: {
-      data: { list: list.as_json(only: [:uuid, :title]) }
+      data: { list: list.as_json(only: [:uuid, :title], include: { cards: { only: [:uuid, :title, :description] } }) }
     }, status: :ok
   end
 
