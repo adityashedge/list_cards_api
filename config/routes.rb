@@ -16,5 +16,10 @@ Rails.application.routes.draw do
     end
 
     resources :cards, except: [:new, :edit]
+
+    resources :comments, only: [:index, :create], path: "/:resource_type/:resource_id/comments", constraints: { resource_type: "cards" }
+    resources :replies, only: [:index, :create, :show], controller: :comments, path: "/:resource_type/:resource_id/replies", constraints: { resource_type: "comments" }
+    match "/comments/:id" => "comments#update", via: [:put, :patch], as: "comment"
+    delete "/comments/:id" => "comments#destroy"
   end
 end
