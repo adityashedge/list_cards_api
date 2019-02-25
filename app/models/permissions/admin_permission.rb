@@ -14,6 +14,11 @@ module Permissions
       allow "v1/cards", [:destroy] do |card|
         card.user_id == user.user_id || card.list.owner_id == user.user_id
       end
+
+      allow "v1/comments", [:index, :create, :show, :destroy]
+      allow "v1/comments", [:update] do |comment|
+        comment.user_id == user.user_id
+      end
     end
   end
 end
